@@ -1,17 +1,17 @@
-# OpenAPI schema for HMS IDM projects
+# OpenAPI schema for Podengo project
 
 The OpenAPI schemas are used by the projects
 
-* idm-domains-backend
-* idm-domains-frontend
+* idmsvc-backend
+* idmsvc-frontend
 * ipa-hcc
 
-## Integrating submodules with HMS IDM repos
+## Integrating submodules with Podengo repos
 
 Add submodule to a repository (replace `PATH`)
 
 ```sh
-git submodule add https://gitlab.cee.redhat.com/identity-management/idmocp/idm-domains-api.git api
+git submodule add https://github.com/podengo-project/idmsvc-api.git api
 ```
 
 Update remote changes of a submodule
