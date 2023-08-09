@@ -85,6 +85,38 @@ paths:
                 - x-rh-identity: []
             tags:
                 - resources
+    /domains/token:
+        description: Request a domain registration token
+        summary: Domain registration token
+        parameters:
+            - name: X-Rh-Insights-Request-Id
+              description: Request id
+              required: true
+              schema:
+                  type: string
+              in: header
+        post:
+            description: Request a domain registration token
+            summary: Domain registration token request
+            operationId: createDomainToken
+            requestBody:
+                description: Domain registration request
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/DomainRegTokenRequest'
+            responses:
+                '201':
+                    $ref: '#/components/responses/DomainRegTokenResponse'
+                '400':
+                    $ref: '#/components/responses/ErrorResponse'
+                '404':
+                    $ref: '#/components/responses/ErrorResponse'
+            security:
+                - x-rh-identity: []
+            tags:
+                - resources
     /domains/{uuid}:
         description: Specific operations on an existing domain to read, update or delete it.
         summary: Operations on a specific domain
@@ -297,6 +329,12 @@ components:
                 X-Rh-Idm-Rhel-Idm-Token:
                     schema:
                         type: string
+        DomainRegTokenResponse:
+            description: Response with domain registration token
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/DomainRegToken'
         ErrorResponse:
             description: Error response for some operation.
             content:
@@ -655,6 +693,50 @@ components:
             x-rh-ipa-hcc:
                 type: defs
             example: domain.example
+        DomainRegToken:
+            title: Root Type for domain registration token response
+            description: A domain registration response
+            type: object
+            required:
+                - domain_id
+                - domain_token
+                - domain_type
+                - expiration
+            additionalProperties: false
+            properties:
+                domain_id:
+                    $ref: '#/components/schemas/DomainId'
+                domain_token:
+                    description: A domain registration token string
+                    type: string
+                domain_type:
+                    $ref: '#/components/schemas/DomainType'
+                expiration:
+                    description: Expiration time stamp (Unix timestamp)
+                    type: integer
+            x-rh-ipa-hcc:
+                name: DomainRegTokenResponse
+                type: response
+            example:
+                domain_id: 681abfd7-18ce-51b3-a9cc-10d386c8dc35
+                domain_token: F3kVxQP4sIs.cjbtH-GB8JuszfqrQnnudLoLzJH3zkw5jnhmTgKP_HU
+                domain_type: rhel-idm
+                expiration: 1691407070
+        DomainRegTokenRequest:
+            title: Root Type for domain registration token request
+            description: A domain registration request
+            type: object
+            required:
+                - domain_type
+            additionalProperties: false
+            properties:
+                domain_type:
+                    $ref: '#/components/schemas/DomainType'
+            x-rh-ipa-hcc:
+                name: DomainRegTokenRequest
+                type: request
+            example:
+                domain_type: rhel-idm
         DomainType:
             title: Domain Type
             description: Type of domain (currently only rhel-idm)
