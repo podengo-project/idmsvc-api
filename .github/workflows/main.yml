@@ -22,3 +22,10 @@ jobs:
           touch *.yaml
           make generate-json
           git diff --exit-code
+
+  oapi_codegen:
+    runs-on: "ubuntu-latest"
+    container: registry.access.redhat.com/ubi9/go-toolset:1.18
+    steps:
+      - uses: "actions/checkout@v3"
+      - run: make oapi-codegen
