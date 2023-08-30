@@ -1030,13 +1030,6 @@ components:
             x-rh-ipa-hcc:
                 type: defs
             example: alpha
-        OrgId:
-            title: Organization id
-            description: The Org ID of the tenant that owns the host.
-            type: string
-            x-rh-ipa-hcc:
-                type: defs
-            example: '000102'
         PaginationLinks:
             title: Root Type for PaginationLinks
             description: Represent the navigation links for the data paginated.
@@ -1123,16 +1116,6 @@ components:
                 domain_id: 1aa15eae-a88b-11ed-a2cb-482ae3863d30
                 domain_name: mydomain.example
                 domain_type: rhel-idm
-        RhelIdmToken:
-            title: Root Type for RhelIdmToken
-            description: Represent a rhel-idm token which allow register the domain information.
-            type: object
-            properties:
-                expiration:
-                    type: string
-                    format: date-time
-                secret:
-                    type: string
         SigningKeys:
             title: Signing keys
             description: Serialized JWKs with revocation information
