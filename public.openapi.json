@@ -77,7 +77,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:User"
+            ]
           }
         ],
         "tags": [
@@ -117,7 +119,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:User"
+            ]
           }
         ],
         "tags": [
@@ -161,7 +165,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:User"
+            ]
           }
         ],
         "tags": [
@@ -189,7 +195,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:User"
+            ]
           }
         ],
         "tags": [
@@ -213,7 +221,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:User"
+            ]
           }
         ],
         "tags": [
@@ -277,7 +287,12 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:System"
+            ]
+          },
+          {
+            "x-rh-idm-registration-token": []
           }
         ],
         "tags": [
@@ -330,7 +345,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:System:domain"
+            ]
           }
         ],
         "tags": [
@@ -394,7 +411,9 @@
         },
         "security": [
           {
-            "x-rh-identity": []
+            "x-rh-identity": [
+              "Type:System:domain"
+            ]
           }
         ],
         "tags": [
@@ -1527,7 +1546,13 @@
     "securitySchemes": {
       "x-rh-identity": {
         "name": "X-Rh-Identity",
-        "description": "Base64-encoded JSON identity header provided by 3Scale. It contains type (System, User), org_id, and either username or certificate CN.",
+        "description": "Base64-encoded JSON identity header provided by 3Scale API gateway.\nThe JSON object contains type (System, User), org_id, and either username or certificate CN.\nScopes:\n- 'Type:User' for user access\n- 'Type:System': for system access (hosts with RHSM mTLS auth)\n- 'Type:System:domain' for system access, limited to host's domain\n",
+        "type": "apiKey",
+        "in": "header"
+      },
+      "x-rh-idm-registration-token": {
+        "name": "X-Rh-Idm-Registration-Token",
+        "description": "One-time Domain Registration Token to authenticate domain registration with ipa-hcc command.",
         "type": "apiKey",
         "in": "header"
       }

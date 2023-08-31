@@ -53,7 +53,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:User
             tags:
                 - resources
         parameters:
@@ -77,7 +78,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:User
             tags:
                 - resources
     /domains/token:
@@ -104,7 +106,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:User
             tags:
                 - resources
     /domains/{uuid}:
@@ -122,7 +125,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:User
             tags:
                 - resources
         get:
@@ -137,7 +141,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:User
             tags:
                 - resources
         parameters:
@@ -174,7 +179,9 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:System
+                - x-rh-idm-registration-token: []
             tags:
                 - actions
     /domains/{uuid}/update:
@@ -205,7 +212,8 @@ paths:
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:System:domain
             tags:
                 - actions
     /host-conf/{inventory_id}/{fqdn}:
@@ -245,7 +253,8 @@ paths:
                 '200':
                     $ref: '#/components/responses/HostConfResponse'
             security:
-                - x-rh-identity: []
+                - x-rh-identity:
+                      - Type:System:domain
             tags:
                 - actions
 components:
@@ -1121,7 +1130,18 @@ components:
     securitySchemes:
         x-rh-identity:
             name: X-Rh-Identity
-            description: Base64-encoded JSON identity header provided by 3Scale. It contains type (System, User), org_id, and either username or certificate CN.
+            description: |
+                Base64-encoded JSON identity header provided by 3Scale API gateway.
+                The JSON object contains type (System, User), org_id, and either username or certificate CN.
+                Scopes:
+                - 'Type:User' for user access
+                - 'Type:System': for system access (hosts with RHSM mTLS auth)
+                - 'Type:System:domain' for system access, limited to host's domain
+            type: apiKey
+            in: header
+        x-rh-idm-registration-token:
+            name: X-Rh-Idm-Registration-Token
+            description: One-time Domain Registration Token to authenticate domain registration with ipa-hcc command.
             type: apiKey
             in: header
 security:
