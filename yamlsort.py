@@ -29,6 +29,8 @@ PRIORITIES = {
     "items": -50,
     # response schema
     "schema": -50,
+    # paths
+    "parameters": -80,
     # sort after all other keys
     "example": 1000,
 }

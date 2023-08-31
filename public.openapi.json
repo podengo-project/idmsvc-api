@@ -24,10 +24,14 @@
     "/domains": {
       "description": "It store the necessary information about a domain that will let manage them",
       "summary": "Domain resource",
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
+        }
+      ],
       "get": {
         "description": "For the current organization, list all the domains that\nare being managed from console.dot",
         "summary": "List domains in the organization",
-        "operationId": "listDomains",
         "parameters": [
           {
             "name": "offset",
@@ -64,6 +68,7 @@
             "in": "query"
           }
         ],
+        "operationId": "listDomains",
         "responses": {
           "200": {
             "$ref": "#/components/responses/ListDomainsResponse"
@@ -86,29 +91,32 @@
           "resources"
         ]
       },
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
-        }
-      ],
       "post": {
-        "description": "Create a domain in the current organization.",
-        "summary": "Create a domain.",
-        "operationId": "createDomain",
+        "description": "Register a domain in the current organization.",
+        "summary": "Register a domain.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRhIdmRegistrationTokenHeader"
+          },
+          {
+            "$ref": "#/components/parameters/XRhIdmVersionHeader"
+          }
+        ],
+        "operationId": "RegisterDomain",
         "requestBody": {
-          "description": "Domain object to be created.",
+          "description": "Domain object to be registered.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateDomain"
+                "$ref": "#/components/schemas/RegisterDomainRequest"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "$ref": "#/components/responses/CreateDomainResponse"
+            "$ref": "#/components/responses/RegisterDomainResponse"
           },
           "400": {
             "$ref": "#/components/responses/ErrorResponse"
@@ -120,8 +128,11 @@
         "security": [
           {
             "x-rh-identity": [
-              "Type:User"
+              "Type:System"
             ]
+          },
+          {
+            "x-rh-idm-registration-token": []
           }
         ],
         "tags": [
@@ -178,6 +189,14 @@
     "/domains/{uuid}": {
       "description": "Specific operations on an existing domain to read, update or delete it.",
       "summary": "Operations on a specific domain",
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
+        },
+        {
+          "$ref": "#/components/parameters/DomainIdParam"
+        }
+      ],
       "delete": {
         "description": "Delete an existing domain from the current organization.",
         "summary": "Delete domain.",
@@ -230,50 +249,24 @@
           "resources"
         ]
       },
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
-        },
-        {
-          "$ref": "#/components/parameters/DomainIdParam"
-        }
-      ]
-    },
-    "/domains/{uuid}/register": {
-      "description": "First registration to update the IPA domain information.",
-      "summary": "Register domain information throw the ipa-hcc agent.",
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
-        },
-        {
-          "$ref": "#/components/parameters/XRhIdmRegistrationTokenHeader"
-        },
-        {
-          "$ref": "#/components/parameters/XRhIdmVersionHeader"
-        },
-        {
-          "$ref": "#/components/parameters/DomainIdParam"
-        }
-      ],
-      "put": {
-        "description": "Use the one time use token to update the initial information for\na rhel-idm domain.",
-        "summary": "Update a domain.",
-        "operationId": "registerDomain",
+      "patch": {
+        "description": "Update the rhel-idm domain information.",
+        "summary": "Update domain information by user.",
+        "operationId": "updateDomainUser",
         "requestBody": {
           "description": "Information for an IPA domain so it is updated from the ipa-hcc agent.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Domain"
+                "$ref": "#/components/schemas/UpdateDomainUserRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/RegisterDomainResponse"
+            "$ref": "#/components/responses/UpdateDomainUserResponse"
           },
           "400": {
             "$ref": "#/components/responses/ErrorResponse"
@@ -288,50 +281,37 @@
         "security": [
           {
             "x-rh-identity": [
-              "Type:System"
+              "Type:User"
             ]
-          },
-          {
-            "x-rh-idm-registration-token": []
           }
         ],
         "tags": [
           "actions"
         ]
-      }
-    },
-    "/domains/{uuid}/update": {
-      "description": "Update the rhel-idm domain information.",
-      "summary": "Update domain information throw the ipa-hcc agent.",
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
-        },
-        {
-          "$ref": "#/components/parameters/XRhIdmVersionHeader"
-        },
-        {
-          "$ref": "#/components/parameters/DomainIdParam"
-        }
-      ],
+      },
       "put": {
-        "description": "Update the initial information for a rhel-idm domain.",
-        "summary": "Update a previously registered domain.",
-        "operationId": "updateDomain",
+        "description": "Update the rhel-idm domain information.",
+        "summary": "Update domain information by ipa-hcc agent.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/XRhIdmVersionHeader"
+          }
+        ],
+        "operationId": "updateDomainAgent",
         "requestBody": {
           "description": "Information for an IPA domain so it is updated from the ipa-hcc agent.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Domain"
+                "$ref": "#/components/schemas/UpdateDomainAgentRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "$ref": "#/components/responses/UpdateDomainResponse"
+            "$ref": "#/components/responses/UpdateDomainAgentResponse"
           },
           "400": {
             "$ref": "#/components/responses/ErrorResponse"
@@ -420,6 +400,42 @@
           "actions"
         ]
       }
+    },
+    "/signing_keys": {
+      "description": "Signing keys and revokation information for host conf JWKs",
+      "summary": "Signing keys",
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/XRhInsightsRequestIdHeader"
+        }
+      ],
+      "get": {
+        "description": "Get signing keys and revokation information",
+        "summary": "Signing keys",
+        "operationId": "getSigningKeys",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ReadKeysResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          }
+        },
+        "security": [
+          {
+            "x-rh-identity": [
+              "Type:System",
+              "Type:User"
+            ]
+          }
+        ],
+        "tags": [
+          "resources"
+        ]
+      }
     }
   },
   "components": {
@@ -467,23 +483,6 @@
       }
     },
     "responses": {
-      "CreateDomainResponse": {
-        "description": "Response when a domain has been created.",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Domain"
-            }
-          }
-        },
-        "headers": {
-          "X-Rh-Idm-Rhel-Idm-Token": {
-            "schema": {
-              "type": "string"
-            }
-          }
-        }
-      },
       "DomainRegTokenResponse": {
         "description": "Response with domain registration token",
         "content": {
@@ -529,7 +528,17 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Domain"
+              "$ref": "#/components/schemas/DomainResponse"
+            }
+          }
+        }
+      },
+      "ReadKeysResponse": {
+        "description": "Response for get keys operation by system or user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SigningKeysResponse"
             }
           }
         }
@@ -539,17 +548,27 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Domain"
+              "$ref": "#/components/schemas/DomainRegisterResponse"
             }
           }
         }
       },
-      "UpdateDomainResponse": {
-        "description": "Response for the domain update operation.",
+      "UpdateDomainAgentResponse": {
+        "description": "Response for the domain update operation by ipa-hcc agent.",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/Domain"
+              "$ref": "#/components/schemas/DomainUpdateResponse"
+            }
+          }
+        }
+      },
+      "UpdateDomainUserResponse": {
+        "description": "Response for the domain update operation by user.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/DomainResponse"
             }
           }
         }
@@ -623,130 +642,8 @@
           "type": "defs"
         }
       },
-      "CreateDomain": {
-        "title": "Root Type for DomainResponse",
-        "description": "A domain resource",
-        "type": "object",
-        "required": [
-          "auto_enrollment_enabled",
-          "description",
-          "domain_type",
-          "title"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "title": {
-            "description": "the title for the entry",
-            "type": "string"
-          },
-          "description": {
-            "description": "Human readable description for this domain.",
-            "type": "string",
-            "example": "This is my awesome domain description."
-          },
-          "auto_enrollment_enabled": {
-            "description": "Enable or disable host vm auto-enrollment for this domain",
-            "type": "boolean",
-            "example": "true"
-          },
-          "domain_type": {
-            "$ref": "#/components/schemas/DomainType"
-          }
-        },
-        "example": {
-          "title": "My Domain Example Title",
-          "description": "My Domain Example Description",
-          "type": "rhel-idm",
-          "auto_enrollment_enabled": true
-        }
-      },
-      "CreateDomainIpa": {
-        "title": "Root Type for ResponseIpaObject",
-        "description": "Options for ipa domains",
-        "type": "object",
-        "required": [
-          "ca_certs",
-          "realm_domains",
-          "realm_name"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "servers": {
-            "description": "List of auto-enrollment enabled servers for this domain.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateDomainIpaServer"
-            },
-            "example": "[\"server1.mydomain.example\",\"server2.mydomain.example\"]"
-          },
-          "ca_certs": {
-            "description": "A base64 representation of all the list of chain of certificates, including the server ca.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Certificate"
-            },
-            "example": "[\n  {\n    \"nickname\": \"MYDOMAIN.EXAMPLE IPA CA\",\n    \"issuer\": \"CN=Certificate Authority,O=MYDOMAIN.EXAMPLE\",\n    \"subject\": \"CN=Certificate Authority,O=MYDOMAIN.EXAMPLE\",\n    \"serial_number\": \"1\",\n    \"not_before\": \"2023-01-31T13:23:36Z\",\n    \"not_after\": \"2023-01-31T13:23:36Z\",\n    \"pem\": \"-----BEGIN CERTIFICATE-----\\nMII...\\n-----END CERTIFICATE-----\\n\"\n  }\n]"
-          },
-          "realm_domains": {
-            "description": "TODO What is the meaning of this field.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "realm_name": {
-            "$ref": "#/components/schemas/RealmName"
-          }
-        }
-      },
-      "CreateDomainIpaServer": {
-        "title": "Root Type for CreateDomainIpaServer",
-        "description": "Server schema for an entry into the Ipa domain type",
-        "type": "object",
-        "required": [
-          "ca_server",
-          "fqdn",
-          "hcc_enrollment_server",
-          "hcc_update_server",
-          "pkinit_server",
-          "subscription_manager_id"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "ca_server": {
-            "type": "boolean",
-            "example": "true"
-          },
-          "fqdn": {
-            "$ref": "#/components/schemas/Fqdn"
-          },
-          "hcc_enrollment_server": {
-            "type": "boolean",
-            "example": "true"
-          },
-          "hcc_update_server": {
-            "type": "boolean",
-            "example": "true"
-          },
-          "pkinit_server": {
-            "type": "boolean",
-            "example": "true"
-          },
-          "subscription_manager_id": {
-            "$ref": "#/components/schemas/SubscriptionManagerId"
-          }
-        },
-        "example": {
-          "ca_server": true,
-          "fqdn": "ipaserver.mydomain.example",
-          "hcc_enrollment_server": true,
-          "hcc_update_server": true,
-          "pkinit_server": true,
-          "subscription_manager_id": "03965a2c-bd24-11ed-968d-482ae3863d30"
-        }
-      },
       "Domain": {
-        "title": "Root Type for DomainResponse",
+        "title": "Base type for domain objects",
         "description": "A domain resource",
         "type": "object",
         "required": [
@@ -781,29 +678,28 @@
           },
           "rhel-idm": {
             "$ref": "#/components/schemas/DomainIpa"
-          },
-          "signing_keys": {
-            "$ref": "#/components/schemas/SigningKeys"
           }
         },
         "x-rh-ipa-hcc": {
-          "name": "IPADomainResponse",
-          "type": "response"
+          "type": "defs"
         },
         "example": {
+          "description": "My awesome domain description.",
           "auto_enrollment_enabled": true,
-          "domain_description": "My awesome domain description.",
           "domain_id": "1aa15eae-a88b-11ed-a2cb-482ae3863d30",
           "domain_name": "mydomain.example",
           "domain_type": "rhel-idm",
-          "ipa": {
-            "ca_list": [],
-            "client_options": {},
-            "realm_name": "IPA.EXAMPLE",
-            "server_list": [
-              "server1.mydomain.example",
-              "Server2.mydomain.example"
-            ]
+          "rhel-idm": {
+            "servers": [
+              {
+                "fqdn": "server1.mydomain.example"
+              },
+              {
+                "fqdn": "server2.mydomain.example"
+              }
+            ],
+            "ca_certs": [],
+            "realm_name": "IPA.EXAMPLE"
           }
         }
       },
@@ -998,6 +894,40 @@
           "domain_type": "rhel-idm"
         }
       },
+      "DomainRegisterResponse": {
+        "title": "Response type for domain registration",
+        "description": "TODO",
+        "type": "object",
+        "required": [
+          "domain_id"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Domain"
+          }
+        ],
+        "x-rh-ipa-hcc": {
+          "name": "IPADomainRegisterResponse",
+          "type": "response"
+        }
+      },
+      "DomainResponse": {
+        "title": "Root Type for DomainResponse",
+        "description": "A domain resource",
+        "required": [
+          "auto_enrollment_enabled",
+          "domain_id"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Domain"
+          }
+        ],
+        "x-rh-ipa-hcc": {
+          "name": "IPADomainGetResponse",
+          "type": "response"
+        }
+      },
       "DomainType": {
         "title": "Domain Type",
         "description": "Type of domain (currently only rhel-idm)",
@@ -1009,6 +939,23 @@
           "type": "defs"
         },
         "example": "rhel-idm"
+      },
+      "DomainUpdateResponse": {
+        "title": "Response type for domain update",
+        "description": "TODO",
+        "type": "object",
+        "required": [
+          "auto_enrollment_enabled"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Domain"
+          }
+        ],
+        "x-rh-ipa-hcc": {
+          "name": "IPADomainUpdateResponse",
+          "type": "response"
+        }
       },
       "ErrorInfo": {
         "title": "Error information",
@@ -1460,36 +1407,20 @@
         },
         "example": "DOMAIN.EXAMPLE"
       },
-      "RegisterDomain": {
-        "title": "Root Type for DomainResponse",
+      "RegisterDomainRequest": {
+        "title": "Root Type for DomainRequest",
         "description": "A domain resource",
-        "type": "object",
-        "additionalProperties": false,
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Domain"
-          }
-        ]
-      },
-      "ResponseDomain": {
-        "title": "Root Type for DomainResponse",
-        "description": "A domain resource",
-        "type": "object",
-        "additionalProperties": false,
         "allOf": [
           {
             "$ref": "#/components/schemas/Domain"
           }
         ],
-        "example": {
-          "auto_enrollment_enabled": true,
-          "domain_description": "My awesome domain description.",
-          "domain_id": "1aa15eae-a88b-11ed-a2cb-482ae3863d30",
-          "domain_name": "mydomain.example",
-          "domain_type": "rhel-idm"
+        "x-rh-ipa-hcc": {
+          "name": "IPADomainRegisterRequest",
+          "type": "request"
         }
       },
-      "SigningKeys": {
+      "SigningKeysResponse": {
         "title": "Signing keys",
         "description": "Serialized JWKs with revocation information",
         "type": "object",
@@ -1504,7 +1435,8 @@
             "items": {
               "type": "string"
             },
-            "minItems": 1
+            "minItems": 0,
+            "x-comment": "TODO: Set \"minItems: 1\" after backend has implemented keys"
           },
           "revoked_kids": {
             "description": "An array of revoked key identifiers (JWK kid)",
@@ -1516,7 +1448,8 @@
           }
         },
         "x-rh-ipa-hcc": {
-          "type": "defs"
+          "name": "SigningKeysResponse",
+          "type": "response"
         }
       },
       "SubscriptionManagerId": {
@@ -1531,16 +1464,53 @@
         },
         "example": "e658e3eb-148c-46a6-b48a-099f9593191a"
       },
-      "UpdateDomain": {
-        "title": "Root Type for DomainResponse",
-        "description": "Update a domain resource",
+      "UpdateDomainAgentRequest": {
+        "title": "Root Type for DomainRequest",
+        "description": "A domain resource",
         "type": "object",
+        "required": [
+          "domain_name",
+          "domain_type",
+          "rhel-idm"
+        ],
         "additionalProperties": false,
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Domain"
+        "properties": {
+          "domain_name": {
+            "$ref": "#/components/schemas/DomainName"
+          },
+          "domain_type": {
+            "$ref": "#/components/schemas/DomainType"
+          },
+          "rhel-idm": {
+            "$ref": "#/components/schemas/DomainIpa"
           }
-        ]
+        },
+        "x-rh-ipa-hcc": {
+          "name": "IPADomainUpdateRequest",
+          "type": "request"
+        }
+      },
+      "UpdateDomainUserRequest": {
+        "title": "Root Type for DomainRequest",
+        "description": "A domain resource",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "description": "Title to describe the domain.",
+            "type": "string",
+            "format": "domain-title"
+          },
+          "description": {
+            "description": "Human readable description abou the domain.",
+            "type": "string",
+            "format": "domain-description"
+          },
+          "auto_enrollment_enabled": {
+            "description": "Enable or disable host vm auto-enrollment for this domain",
+            "type": "boolean",
+            "example": "true"
+          }
+        }
       }
     },
     "securitySchemes": {
