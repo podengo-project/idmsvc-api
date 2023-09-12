@@ -1334,22 +1334,26 @@
           "first": {
             "description": "Reference to the first page of the request.",
             "type": "string",
-            "format": "url"
+            "format": "pagination-ref",
+            "pattern": "^(\\/\\w+){4}\\?(offset|limit)=(0|[1-9]\\d*)\\&(offset|limit)=(0|[1-9]\\d*)$"
           },
           "last": {
             "description": "Reference to the last page of the request.",
             "type": "string",
-            "format": "url"
+            "format": "pagination-ref",
+            "pattern": "^(\\/\\w+){4}\\?(offset|limit)=(0|[1-9]\\d*)\\&(offset|limit)=(0|[1-9]\\d*)$"
           },
           "next": {
             "description": "Reference to the next page of the request.",
             "type": "string",
-            "format": "url"
+            "format": "pagination-ref",
+            "pattern": "^(\\/\\w+){4}\\?(offset|limit)=(0|[1-9]\\d*)\\&(offset|limit)=(0|[1-9]\\d*)$"
           },
           "previous": {
             "description": "Reference to the previous page of the request.",
             "type": "string",
-            "format": "url"
+            "format": "pagination-ref",
+            "pattern": "^(\\/\\w+){4}\\?(offset|limit)=(0|[1-9]\\d*)\\&(offset|limit)=(0|[1-9]\\d*)$"
           }
         },
         "example": {
