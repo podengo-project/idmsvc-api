@@ -176,7 +176,7 @@ paths:
                 - x-rh-identity:
                       - Type:User
             tags:
-                - actions
+                - resources
         put:
             description: Update the rhel-idm domain information.
             summary: Update domain information by ipa-hcc agent.
