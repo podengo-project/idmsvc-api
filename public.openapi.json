@@ -735,6 +735,16 @@
               "$ref": "#/components/schemas/DomainIpaServer"
             }
           },
+          "automount_locations": {
+            "description": "List of automount locations for AutoFS",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "example": "[\"default\"]"
+          },
           "ca_certs": {
             "description": "A base64 representation of all the list of chain of certificates, including the server ca.",
             "type": "array",
@@ -744,7 +754,7 @@
             "example": "[\n  {\n    \"nickname\": \"MYDOMAIN.EXAMPLE IPA CA\",\n    \"issuer\": \"CN=Certificate Authority,O=MYDOMAIN.EXAMPLE\",\n    \"subject\": \"CN=Certificate Authority,O=MYDOMAIN.EXAMPLE\",\n    \"serial_number\": \"1\",\n    \"not_before\": \"2023-01-31T13:23:36Z\",\n    \"not_after\": \"2023-01-31T13:23:36Z\"\n    \"pem\": \"-----BEGIN CERTIFICATE-----\\nMIIE...\\n-----END CERTIFICATE-----\\n\",\n  }\n]"
           },
           "locations": {
-            "description": "List of allowed locations",
+            "description": "List of DNS locations",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Location"
@@ -1095,6 +1105,14 @@
               "$ref": "#/components/schemas/HostConfIpaServer"
             },
             "example": "[{\"fqdn\": \"server1.mydomain.example\"}, {\"fqdn\": \"server2.mydomain.example\"}]"
+          },
+          "ipa_client_install_args": {
+            "description": "List of additional arguments for ipa-client-install",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": "[\"--automount-location=default\", \"--enable-dns-updates\"]"
           },
           "realm_name": {
             "$ref": "#/components/schemas/RealmName"
