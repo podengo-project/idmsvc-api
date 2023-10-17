@@ -481,6 +481,14 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/DomainIpaServer'
+                automount_locations:
+                    description: List of automount locations for AutoFS
+                    type: array
+                    items:
+                        type: string
+                        minLength: 1
+                    minItems: 0
+                    example: '["default"]'
                 ca_certs:
                     description: A base64 representation of all the list of chain of certificates, including the server ca.
                     type: array
@@ -499,7 +507,7 @@ components:
                           }
                         ]
                 locations:
-                    description: List of allowed locations
+                    description: List of DNS locations
                     type: array
                     items:
                         $ref: '#/components/schemas/Location'
@@ -770,6 +778,12 @@ components:
                     items:
                         $ref: '#/components/schemas/HostConfIpaServer'
                     example: '[{"fqdn": "server1.mydomain.example"}, {"fqdn": "server2.mydomain.example"}]'
+                ipa_client_install_args:
+                    description: List of additional arguments for ipa-client-install
+                    type: array
+                    items:
+                        type: string
+                    example: '["--automount-location=default", "--enable-dns-updates"]'
                 realm_name:
                     $ref: '#/components/schemas/RealmName'
             x-rh-ipa-hcc:
