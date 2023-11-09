@@ -381,7 +381,7 @@ components:
                     format: cert-issuer
                     example: O=DOMAIN.EXAMPLE, CN=Certificate Authority
                 nickname:
-                    title: Internal nick name in LDAP
+                    title: Internal nick name in LDAP (RDN cn)
                     type: string
                     example: DOMAIN.EXAMPLE CA
                 not_after:
@@ -411,6 +411,7 @@ components:
                     example: O=DOMAIN.EXAMPLE, CN=Certificate Authority
             x-rh-ipa-hcc:
                 type: defs
+            x-rh-rdn-value: nickname
         Domain:
             title: Base type for domain objects
             description: A domain resource
@@ -442,6 +443,7 @@ components:
                     $ref: '#/components/schemas/DomainIpa'
             x-rh-ipa-hcc:
                 type: defs
+            x-rh-rdn-value: domain_name
             example:
                 description: My awesome domain description.
                 auto_enrollment_enabled: true
@@ -559,6 +561,7 @@ components:
             x-rh-ipa-hcc:
                 name: IPAServer
                 type: defs
+            x-rh-rdn-value: fqdn
             example:
                 ca_server: true
                 fqdn: ipaserver.mydomain.example
@@ -569,7 +572,10 @@ components:
                 subscription_manager_id: 03965a2c-bd24-11ed-968d-482ae3863d30
         DomainName:
             title: Fully qualified domain name
-            description: A name of a domain (all lower-case)
+            description: >
+                A name of a domain (all lower-case). The domain name can only
+                be set during initial registration and not be modified by
+                updates.
             type: string
             format: idn-hostname
             maxLength: 253
@@ -943,6 +949,7 @@ components:
                     type: string
             x-rh-ipa-hcc:
                 type: defs
+            x-rh-rdn-value: name
         LocationName:
             title: Location identifier (IPA location, AD site)
             description: A location identifier (lower-case DNS label)
@@ -1014,7 +1021,10 @@ components:
                 offset: 0
         RealmName:
             title: Kerberos realm name
-            description: A Kerberos realm name (usually all upper-case domain name)
+            description: >
+                A Kerberos realm name (usually all upper-case domain name).
+                The realm can only be set during initial registration and not
+                be modified by updates.
             type: string
             format: realm
             maxLength: 253
