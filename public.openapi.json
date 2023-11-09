@@ -603,7 +603,7 @@
             "example": "O=DOMAIN.EXAMPLE, CN=Certificate Authority"
           },
           "nickname": {
-            "title": "Internal nick name in LDAP",
+            "title": "Internal nick name in LDAP (RDN cn)",
             "type": "string",
             "example": "DOMAIN.EXAMPLE CA"
           },
@@ -640,7 +640,8 @@
         },
         "x-rh-ipa-hcc": {
           "type": "defs"
-        }
+        },
+        "x-rh-rdn-value": "nickname"
       },
       "Domain": {
         "title": "Base type for domain objects",
@@ -683,6 +684,7 @@
         "x-rh-ipa-hcc": {
           "type": "defs"
         },
+        "x-rh-rdn-value": "domain_name",
         "example": {
           "description": "My awesome domain description.",
           "auto_enrollment_enabled": true,
@@ -823,6 +825,7 @@
           "name": "IPAServer",
           "type": "defs"
         },
+        "x-rh-rdn-value": "fqdn",
         "example": {
           "ca_server": true,
           "fqdn": "ipaserver.mydomain.example",
@@ -835,7 +838,7 @@
       },
       "DomainName": {
         "title": "Fully qualified domain name",
-        "description": "A name of a domain (all lower-case)",
+        "description": "A name of a domain (all lower-case). The domain name can only be set during initial registration and not be modified by updates.\n",
         "type": "string",
         "format": "idn-hostname",
         "maxLength": 253,
@@ -1329,7 +1332,8 @@
         },
         "x-rh-ipa-hcc": {
           "type": "defs"
-        }
+        },
+        "x-rh-rdn-value": "name"
       },
       "LocationName": {
         "title": "Location identifier (IPA location, AD site)",
@@ -1418,7 +1422,7 @@
       },
       "RealmName": {
         "title": "Kerberos realm name",
-        "description": "A Kerberos realm name (usually all upper-case domain name)",
+        "description": "A Kerberos realm name (usually all upper-case domain name). The realm can only be set during initial registration and not be modified by updates.\n",
         "type": "string",
         "format": "realm",
         "maxLength": 253,
