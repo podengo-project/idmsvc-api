@@ -1095,6 +1095,12 @@
         ],
         "additionalProperties": false,
         "properties": {
+          "automount_location": {
+            "description": "Automount location name for ipa-client-automount",
+            "type": "string",
+            "minLength": 1,
+            "example": "default"
+          },
           "cabundle": {
             "$ref": "#/components/schemas/CaCertBundle"
           },
@@ -1112,7 +1118,7 @@
             "items": {
               "type": "string"
             },
-            "example": "[\"--automount-location=default\", \"--enable-dns-updates\"]"
+            "example": "[\"--enable-dns-updates\"]"
           },
           "realm_name": {
             "$ref": "#/components/schemas/RealmName"
