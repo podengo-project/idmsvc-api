@@ -25,7 +25,7 @@ jobs:
 
   oapi_codegen:
     runs-on: "ubuntu-latest"
-    container: registry.access.redhat.com/ubi9/go-toolset:1.18
+    container: registry.access.redhat.com/ubi9/go-toolset:1.20
     steps:
       - uses: "actions/checkout@v3"
       - run: make oapi-codegen

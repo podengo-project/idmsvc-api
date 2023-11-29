@@ -8,7 +8,7 @@ NODE_BIN = node_modules/.bin
 BIN = bin
 TMP = tmp
 OAPI_CODEGEN = $(BIN)/oapi-codegen
-OAPI_CODEGEN_VERSION ?= v1.12.4
+OAPI_CODEGEN_VERSION ?= v1.14.0
 
 SWAGGER_CONTAINER = swagger-editor
 
