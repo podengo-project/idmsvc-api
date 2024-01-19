@@ -40,7 +40,6 @@ $(NODE_BIN)/%: package.json package-lock.json
 validate: $(VALIDATOR)
 	$(VALIDATOR) public.openapi.yaml
 	$(VALIDATOR) internal.openapi.yaml
-	$(VALIDATOR) metrics.openapi.yaml
 
 .PHONY: openapi-sort
 openapi-sort: $(PYTHON_VENV)
@@ -50,7 +49,6 @@ openapi-sort: $(PYTHON_VENV)
 vacuum: $(NODE_BIN)/vacuum
 	npm run vacuum:lint public.openapi.yaml
 	npm run vacuum:lint internal.openapi.yaml
-	npm run vacuum:lint metrics.openapi.yaml
 
 .PHONY: swagger-editor
 swagger-editor:
@@ -67,7 +65,7 @@ swagger-editor-stop:
 	podman stop $(SWAGGER_CONTAINER)
 
 .PHONY: generate-json
-generate-json: public.openapi.json internal.openapi.json metrics.openapi.json
+generate-json: public.openapi.json internal.openapi.json
 
 %.openapi.json: %.openapi.yaml $(PYTHON_VENV)
 	$(PYTHON_VENV) yaml2json.py $< $@
