@@ -40,3 +40,7 @@ git submodule update --init
 Set the environment variable `GIT_SUBMODULE_STRATEGY=normal`, e.g. in CI/CD
 variables in the settings menu, see
 [CI docs](https://docs.gitlab.com/ee/ci/git_submodules.html).
+
+## Contributing
+
+Please read our [CONTRIBUTING.md](CONTRIBUTING.md) guidelines.
