@@ -1433,7 +1433,6 @@
         "format": "realm",
         "maxLength": 253,
         "minLength": 3,
-        "pattern": "^[A-Z0-9\\.\\-]+$",
         "x-rh-ipa-hcc": {
           "type": "defs"
         },
