@@ -57,6 +57,7 @@ paths:
             security:
                 - x-rh-identity:
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
         post:
@@ -112,6 +113,7 @@ paths:
             security:
                 - x-rh-identity:
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
     /domains/{uuid}:
@@ -134,6 +136,7 @@ paths:
             security:
                 - x-rh-identity:
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
         get:
@@ -150,6 +153,7 @@ paths:
             security:
                 - x-rh-identity:
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
         patch:
@@ -175,6 +179,7 @@ paths:
             security:
                 - x-rh-identity:
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
         put:
@@ -266,6 +271,7 @@ paths:
                 - x-rh-identity:
                       - Type:System
                       - Type:User
+                      - Type:ServiceAccount
             tags:
                 - resources
 components:
@@ -1123,6 +1129,7 @@ components:
                 The JSON object contains type (System, User), org_id, and either username or certificate CN.
                 Scopes:
                 - 'Type:User' for user access
+                - 'Type:ServiceAccount' for service accounts
                 - 'Type:System': for system access (hosts with RHSM mTLS auth)
                 - 'Type:System:domain' for system access, limited to host's domain
             type: apiKey
