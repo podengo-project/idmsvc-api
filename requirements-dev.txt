@@ -1,3 +1,4 @@
-yamlfix
-openapi-spec-validator
+pyyaml>=6.0.0,<6.1.0
+yamlfix>=1.16.0,<1.17.0
+openapi-spec-validator>=0.7.1,<0.8.0
 
