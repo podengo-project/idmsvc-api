@@ -7,7 +7,6 @@ VALIDATOR = $(VENV)/bin/openapi-spec-validator
 NODE_BIN = node_modules/.bin
 BIN = bin
 TMP = tmp
-OAPI_CODEGEN = $(BIN)/oapi-codegen
 OAPI_CODEGEN_VERSION ?= v1.14.0
 
 SWAGGER_CONTAINER = swagger-editor
@@ -16,7 +15,6 @@ SWAGGER_CONTAINER = swagger-editor
 all:
 	$(MAKE) openapi-sort
 	$(MAKE) validate
-	$(MAKE) oapi-codegen
 	$(MAKE) vacuum
 	$(MAKE) generate-json
 
