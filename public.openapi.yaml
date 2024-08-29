@@ -245,6 +245,18 @@ paths:
             responses:
                 '200':
                     $ref: '#/components/responses/HostConfResponse'
+                '404':
+                    description: No enabled domains matched request parameters
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Errors'
+                '409':
+                    description: Multiple active domains matched request parameters
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Errors'
             security:
                 - x-rh-identity:
                       - Type:System:domain
