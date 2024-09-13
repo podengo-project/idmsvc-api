@@ -979,7 +979,7 @@ components:
             type: string
             maxLength: 63
             minLength: 1
-            pattern: ^[a-z][a-z0-9\-]*$
+            pattern: ^[a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])*$
             x-rh-ipa-hcc:
                 type: defs
             example: alpha
