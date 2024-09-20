@@ -54,6 +54,10 @@ paths:
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
+                    $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
                       - Type:User
@@ -80,6 +84,10 @@ paths:
                 '400':
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
+                    $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
                     $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
@@ -110,6 +118,10 @@ paths:
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
+                    $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
                       - Type:User
@@ -133,6 +145,10 @@ paths:
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
                     $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
+                    $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
                       - Type:User
@@ -149,6 +165,10 @@ paths:
                 '400':
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
+                    $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
                     $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
@@ -175,6 +195,10 @@ paths:
                 '403':
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
+                    $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
                     $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
@@ -203,6 +227,10 @@ paths:
                 '403':
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
+                    $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
                     $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
@@ -257,6 +285,10 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/Errors'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
+                    $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:
                       - Type:System:domain
@@ -278,6 +310,10 @@ paths:
                 '400':
                     $ref: '#/components/responses/ErrorResponse'
                 '404':
+                    $ref: '#/components/responses/ErrorResponse'
+                '413':
+                    $ref: '#/components/responses/ErrorResponse'
+                '431':
                     $ref: '#/components/responses/ErrorResponse'
             security:
                 - x-rh-identity:

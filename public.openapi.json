@@ -78,6 +78,12 @@
           },
           "404": {
             "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
+            "$ref": "#/components/responses/ErrorResponse"
           }
         },
         "security": [
@@ -123,6 +129,12 @@
             "$ref": "#/components/responses/ErrorResponse"
           },
           "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
             "$ref": "#/components/responses/ErrorResponse"
           }
         },
@@ -173,6 +185,12 @@
           },
           "404": {
             "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
+            "$ref": "#/components/responses/ErrorResponse"
           }
         },
         "security": [
@@ -212,6 +230,12 @@
           },
           "404": {
             "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
+            "$ref": "#/components/responses/ErrorResponse"
           }
         },
         "security": [
@@ -238,6 +262,12 @@
             "$ref": "#/components/responses/ErrorResponse"
           },
           "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
             "$ref": "#/components/responses/ErrorResponse"
           }
         },
@@ -279,6 +309,12 @@
             "$ref": "#/components/responses/ErrorResponse"
           },
           "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
             "$ref": "#/components/responses/ErrorResponse"
           }
         },
@@ -325,6 +361,12 @@
             "$ref": "#/components/responses/ErrorResponse"
           },
           "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
             "$ref": "#/components/responses/ErrorResponse"
           }
         },
@@ -412,6 +454,12 @@
                 }
               }
             }
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
+            "$ref": "#/components/responses/ErrorResponse"
           }
         },
         "security": [
@@ -446,6 +494,12 @@
             "$ref": "#/components/responses/ErrorResponse"
           },
           "404": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/components/responses/ErrorResponse"
+          },
+          "431": {
             "$ref": "#/components/responses/ErrorResponse"
           }
         },
