@@ -974,12 +974,12 @@ components:
                 type: defs
             x-rh-rdn-value: name
         LocationName:
+            # validation pattern was removed to not be more restrictive than IPA server
             title: Location identifier (IPA location, AD site)
             description: A location identifier (lower-case DNS label)
             type: string
             maxLength: 63
             minLength: 1
-            pattern: ^[a-z][a-z0-9\-]*$
             x-rh-ipa-hcc:
                 type: defs
             example: alpha
