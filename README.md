@@ -1,5 +1,8 @@
 # OpenAPI schema for Podengo project
 
+**This project is currently inactive.  Issues and pull requests will
+not be attended to.**
+
 The OpenAPI schemas are used by the projects
 
 * idmsvc-backend
